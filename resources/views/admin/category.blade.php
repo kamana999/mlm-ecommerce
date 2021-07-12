@@ -3,6 +3,7 @@
 
 <div class="page-wrapper">
 			<div class="page-content">
+
 				<div class="row">
 					<div class="col-12">
 						<div class="card">
@@ -14,53 +15,6 @@
 									<div class="col-lg-9 col-xl-10">
 										<form class="float-lg-end">
 											<div class="row row-cols-lg-auto g-2">
-												<div class="col-12">
-													<div class="position-relative">
-														<input type="text" class="form-control ps-5" placeholder="Search Product..."> <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
-													</div>
-												</div>
-												<div class="col-12">
-													<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-														<button type="button" class="btn btn-white">Sort By</button>
-														<div class="btn-group" role="group">
-														  <button id="btnGroupDrop1" type="button" class="btn btn-white dropdown-toggle dropdown-toggle-nocaret px-1" data-bs-toggle="dropdown" aria-expanded="false">
-															<i class='bx bx-chevron-down'></i>
-														  </button>
-														  <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-															<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-															<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-														  </ul>
-														</div>
-													  </div>
-												</div>
-												<div class="col-12">
-													<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-														<button type="button" class="btn btn-white">Collection Type</button>
-														<div class="btn-group" role="group">
-														  <button id="btnGroupDrop1" type="button" class="btn btn-white dropdown-toggle dropdown-toggle-nocaret px-1" data-bs-toggle="dropdown" aria-expanded="false">
-															<i class='bx bxs-category'></i>
-														  </button>
-														  <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-															<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-															<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-														  </ul>
-														</div>
-													  </div>
-												</div>
-												<div class="col-12">
-													<div class="btn-group" role="group">
-														<button type="button" class="btn btn-white">Price Range</button>
-														<div class="btn-group" role="group">
-														  <button id="btnGroupDrop1" type="button" class="btn btn-white dropdown-toggle dropdown-toggle-nocaret px-1" data-bs-toggle="dropdown" aria-expanded="false">
-															<i class='bx bx-slider'></i>
-														  </button>
-														  <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="btnGroupDrop1">
-															<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-															<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-														  </ul>
-														</div>
-													  </div>
-												</div>
 											</div>
 										</form>
 									</div>
@@ -97,6 +51,11 @@
                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                         </svg>
                                     </a>
+									<a href="{{route('categories.show',['category'=>$cat->id])}}" class=" bg-transparent text-info ms-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+										<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+										<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+										</svg>
+									</a>
 								</div>
 								<div class="d-flex align-items-center mt-3 fs-6">
 								  <div class="cursor-pointer">

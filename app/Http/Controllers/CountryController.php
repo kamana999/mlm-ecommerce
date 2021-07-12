@@ -30,7 +30,7 @@ class CountryController extends Controller
         $data = [
            
         ];
-        return view('admin.add_country', $data);
+        return view('admin.add_countries', $data);
     }
 
     /**

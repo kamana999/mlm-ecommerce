@@ -21,22 +21,29 @@
 
               <div class="card">
 				  <div class="card-body p-4">
-					  <h5 class="card-title">Add New Category</h5>
-					  <hr/>
+					  
                         <div class="form-body mt-4">
                             <div class="row">
                             <div class="col-lg-12">
                             <div class="border border-3 p-4 rounded">
                             <form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
-                                @csrf
+                            @csrf
+                            <h5 class="card-title">Add Meta Tags</h5><hr/>
+                                <div class="mb-3">
+                                    <label>Keywords</label>
+                                    <input name="meta_keywords" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label>Description</label>
+                                    <input name="meta_description" class="form-control">
+                                </div>
+                                <h5 class="card-title">Add New Category</h5>
+					            <hr/>
                                 <div class="mb-3">
                                     <label class="form-label">Category Title</label>
                                     <input type="text" name="cat_title" class="form-control">
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Description</label>
-                                    <textarea class="form-control"  name="description"rows="3"></textarea>
-                                </div>
+
                                 <div class="mb-3">
                                     <select class="form-control" name="parent_id">
                                         <option value="">Select Parent Category</option>
@@ -48,7 +55,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Category Images</label>
-                                    <input type="file" name="image" class="form-control">
+                                    <input type="file" name="image" class="form-control" required>
                                 </div>
                                 <div class="col-12 mt-2">
                                     <div class="d-grid">

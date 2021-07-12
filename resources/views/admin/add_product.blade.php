@@ -6,13 +6,13 @@
 
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">Cake</div>
+					<div class="breadcrumb-title pe-3">Product</div>
 					<div class="ps-3">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
 								</li>
-								<li class="breadcrumb-item active" aria-current="page">Add New Cake</li>
+								<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
 							</ol>
 						</nav>
 					</div>
@@ -21,25 +21,34 @@
 
               <div class="card">
 				  <div class="card-body p-4">
-					  <h5 class="card-title">Add New Cake</h5>
-					  <hr/>
                         <div class="form-body mt-4">
                             <div class="row">
                             <div class="col-lg-12">
                             <div class="border border-3 p-4 rounded">
-                            <form action="{{route('cakesubmit')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('products.store')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                <h5 class="card-title">Add Meta Tags</h5><hr/>
+                                <div class="mb-3">
+                                    <label>Keywords</label>
+                                    <input name="meta_keywords" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label>Description</label>
+                                    <input name="meta_description" class="form-control">
+                                </div>
+                                <h5 class="card-title">Add New Product</h5>
+					            <hr/>
                                 <div class="mb-3">
                                     <select class="form-control" name="parent_id">
-                                        <option value="">Select Parent Cake</option>
-                                        @foreach ($cakes as $c)
+                                        <option value="">Select Parent Product</option>
+                                        @foreach ($items as $c)
                                         <option value="{{ $c->id }}">{{ $c->title }}</option>
                                         @endforeach
                                     </select>
    
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Cake Title</label>
+                                    <label class="form-label">Product Title</label>
                                     <input type="text" name="title" class="form-control">
                                 </div>
                                 <div class="mb-3">
@@ -71,8 +80,9 @@
                                 <div class="mb-4">
                                     <label for="">Weight Type</label>
                                     <select name="weight_type" id="weight_type" class="form-control">
-                                        <option value="pound">Pound</option>
+                                        <option value="gram">Gram</option>
                                         <option value="kg">KG</option>
+                                        <option value="peices">Peices</option>  
                                            
                                     </select>
                                 </div>
@@ -81,41 +91,11 @@
                                     <input type="text" name="weight" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="">layer</label>
-                                    <input type="text" name="layer" value="1" class="form-control">
+                                    <label class="form-label">Product Image</label>
+                                    <input type="file" name="image" class="form-control" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="">Unit</label>
-                                    <input type="text" name="unit" value="1" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Shape</label>
-                                    <input type="text" name="shape" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Flavour</label>
-                                    <input type="text" name="flavour" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Serve</label>
-                                    <input type="text" name="serve" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Can be Delivired</label>
-                                    <select name="delivired" id="delivired" class="form-control">
-                                        <option>Select</option>
-                                        <option value="today">Today</option>
-                                        <option value="tommorow">Tommorow</option>
-                                        <option value="pre_booking">Pre Booking</option>   
-                                    </select>
-                                </div>
-                        
-                                <div class="mb-3">
-                                    <label class="form-label">Cake Images</label>
-                                    <input type="file" name="image" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Cake Thumbnails</label>
+                                    <label class="form-label">Product Thumbnails</label>
                                     <input type="file" name="images[]" class="form-control" multiple>
                                 </div>
                                 <div class="col-12 mt-2">

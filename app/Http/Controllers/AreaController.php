@@ -52,15 +52,10 @@ class AreaController extends Controller
             'name'=>'required',
         ];
 
-            foreach($request->delivery_time as $name){
-                $data[] = $name;
-            }
-
         $area = new Area();
         $area->name = $request->name;
         $area->pincode = $request->pincode;
         $area->district_id = $request->district_id;
-        $area->delivery_time =json_encode($data);
         $area->delivery_charge = $request->delivery_charge;
         $area->save();
         return redirect()->back();
@@ -102,10 +97,7 @@ class AreaController extends Controller
      */
     public function update(Request $request, Area $area)
     {
-        foreach($request->delivery_time as $name){
-            $data[] = $name;
-        }
-        
+       
         $input = $request->except('delivery_time');
         $input['delivery_time'] = $time;
 
@@ -113,7 +105,6 @@ class AreaController extends Controller
         $area->name = $request->name;
         $area->pincode = $request->pincode;
         $area->district_id = $request->district_id;
-        $area->delivery_time = $data;
         $area->delivery_charge = $request->delivery_charge;
         $area->save();
         return redirect()->route('areas.index');

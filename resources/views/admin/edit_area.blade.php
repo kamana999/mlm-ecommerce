@@ -51,19 +51,7 @@
                                     <label class="form-label">Delivery Charge</label>
                                     <input class="form-control"  name="delivery_charge" value="{{$edits->delivery_charge}}">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="">Set Delivery Time</label>
-                                    <select multiple="multiple" name="delivery_time[]" id="delivery_time" class="form-control" value="" >
-                                        <option value="{{$edits->delivery_time}}" selected>{{$edits->delivery_time}}</option>
-                                        <option value="6AM-9AM">6AM-9AM</option>
-                                        <option value="9AM-12AM">9AM-12AM</option>
-                                        <option value="12PM-3PM">12PM-3PM</option>
-                                        <option value="3PM-6PM">3PM-6PM</option>
-                                        <option value="6PM-9PM">6PM-9PM</option>
-                                        <option value="9PM-12AM">9PM-12AM</option>
-                                    </select>
-                                </div>
-                                
+                        
                                 <div class="col-12 mt-2">
                                 <div class="d-grid">
                                     <input type="submit" class="btn btn-primary w-100">    

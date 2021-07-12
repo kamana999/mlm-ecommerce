@@ -1,7 +1,7 @@
 @extends('admin.base')
 @section('content')
 
-<div class="page-wrapper">
+<div class="page-wrapper mt-5">
 			<div class="page-content">
 			
 			  <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">

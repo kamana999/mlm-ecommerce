@@ -44,9 +44,10 @@ class CategoryController extends Controller
     {
         $request->validate([
             'cat_title'=>'required',
-            'description'=>'required',
             'image'=>'required',
-            'parent_id' => 'sometimes|nullable|numeric'
+            'parent_id' => 'sometimes|nullable|numeric',
+            'meta_keywords' => 'sometimes|nullable',
+            'meta_description' => 'sometimes|nullable',
             
         ]);
 
@@ -55,9 +56,10 @@ class CategoryController extends Controller
 
         $category = new Category();
         $category->cat_title = $request->cat_title;
-        $category->description = $request->description;
         $category->parent_id = $request->parent_id;
         $category->image = $filename;
+        $category->meta_keywords = $request->meta_keywords;
+        $category->meta_description = $request->meta_description;
         $category->save();
 
         return redirect()->route('categories.index');
@@ -69,9 +71,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        $data = [
+            'category'=>$category,
+        ];
+        return view('admin.show_category',$data);
     }
 
     /**
@@ -80,7 +85,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
         $data= [
             'edits'=>$category,
@@ -96,18 +101,25 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
+        $category = $category;
+
         if($request->image){
-            
-            $filename = time(). "." . $request->image->extension();
-            $request->image->move(public_path("upload"), $filename);
-            $category->image = $filename;
+            $filename1 = time(). "." . $request->image->extension();
+            $request->image->move(public_path("upload"), $filename1);
+            $category->image = $filename1;
+        
         }
         else{
             $request->image == null;
         }
-        $category->update($request->all());
+       
+        $category->cat_title = $request->cat_title;
+        $category->parent_id = $request->parent_id;
+        $category->meta_keywords = $request->meta_keywords;
+        $category->meta_description = $request->meta_description;
+        $category->save();
 
         return redirect()->route('categories.index');
     }
@@ -118,7 +130,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         $category->delete();
         return redirect()->route('categories.index');

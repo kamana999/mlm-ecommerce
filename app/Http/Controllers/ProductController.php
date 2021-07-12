@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Category;
-use App\Models\Product;
+use App\Models\Item;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -17,8 +17,8 @@ class ProductController extends Controller
     {
         $data = [
             'categories'=>Category::all(),
-            'cakes'=>Product::all(),
-            'cake'=>Product::with('children')->whereNull('parent_id')->get(),
+            'items'=>Item::all(),
+            'item'=>Item::with('children')->whereNull('parent_id')->get(),
         ];
         return view('admin.product',$data);
     }
@@ -31,7 +31,7 @@ class ProductController extends Controller
     public function create()
     {
         $data = [
-            'cakes'=>Product::with('children')->whereNull('parent_id')->get(),
+            'items'=>Item::with('children')->whereNull('parent_id')->get(),
             'categories'=>Category::all(),
             
         ];
@@ -51,6 +51,8 @@ class ProductController extends Controller
             'price'=>'required',
             'description'=>'required',
             'image'=>'required',
+            'meta_keywords' => 'sometimes|nullable',
+            'meta_description' => 'sometimes|nullable',
         ]);
         if($request->hasFile('images')){
             foreach($request->file('images')as $image){
@@ -61,16 +63,16 @@ class ProductController extends Controller
         }
         $filename1 = time(). "." . $request->image->extension();
         $request->image->move(public_path("upload"), $filename1);
-        $cake = new Product();
+        $cake = new Item();
         $cake->category_id = $request->category_id;
         $cake->title = $request->title;
         $cake->price = $request->price;
         $cake->discount_price = $request->discount_price;
         $cake->weight_type = $request->weight_type;
         $cake->weight = $request->weight;
-        $cake->unit = $request->unit;
         $cake->description = $request->description;
-        
+        $cake->meta_keywords = $request->meta_keywords;
+        $cake->meta_description = $request->meta_description;
         $cake->parent_id = $request->parent_id;
         $cake->image = $filename1;
         $cake->images = json_encode($data);
@@ -84,9 +86,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Item $product)
     {
-        //
+        $data = [
+            'products'=>$product,
+        ];
+        return view('admin.show_products',$data);
     }
 
     /**
@@ -95,12 +100,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Item $product)
     {
         $data= [
-            'cakes'=>Product::with('children')->whereNull('parent_id')->get(),
-            'categories'=>Category::all(),
             'edits'=>$product,
+            'items'=>Item::with('children')->whereNull('parent_id')->get(),
+            'categories'=>Category::all(),
         ];
         return view('admin.edit_product', $data);
     }
@@ -112,12 +117,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Product $product)
+    public function update(Request $request,Item $product)
     {
         if($request->image){
             $filename1 = time(). "." . $request->image->extension();
-            $request->image->move(public_path("upload"), $filename);
-            $cake->image = $filename1;
+            $request->image->move(public_path("upload"), $filename1);
+            $product->image = $filename1;
         }
         elseif($request->hasFile('images')){
             foreach($request->file('images')as $image){
@@ -125,7 +130,7 @@ class ProductController extends Controller
                 $image->move(public_path('upload'),$name);
                 $data[] = $name;
             }
-            $cake->images = json_encode($data);
+            $product->images = json_encode($data);
         }
         else{
             $request->image == null;
@@ -139,10 +144,10 @@ class ProductController extends Controller
         $cake->discount_price = $request->discount_price;
         $cake->weight_type = $request->weight_type;
         $cake->weight = $request->weight;
-        $cake->unit = $request->unit;
         $cake->description = $request->description;
-        $cake->delivired = $request->delivired;
         $cake->parent_id = $request->parent_id;
+        $cake->meta_keywords = $request->meta_keywords;
+        $cake->meta_description = $request->meta_description;
        
         $cake->save();
 
@@ -155,7 +160,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Item $product)
     {
         $product->delete();
         return redirect()->back();

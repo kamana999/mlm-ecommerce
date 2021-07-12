@@ -5,8 +5,13 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@yield('title','Momos Mart')</title>
+	<meta name="keywords" content="@yield('meta_keywords','Momo Mart')">
+	<meta name="description" content="@yield('meta_description','A complete online website')">
+	<link rel="canonical" href="{{url()->current()}}"/>
 	<!--favicon-->
-	<link rel="icon" href="{{asset('assets/images/favicon-32x32.png')}}" type="image/png" />
+	<link rel="icon" href="{{asset('Images/Index/Atrium logo (1)-01.png')}}" type="image/png" />
 	<!--plugins-->
 	<link href="{{asset('assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
 	<link href="{{asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
@@ -34,10 +39,10 @@
 		<div class="sidebar-wrapper" data-simplebar="true">
 			<div class="sidebar-header">
 				<div>
-					<img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+					<img src="{{asset('assets/images/logo-icon.png')}}" class="logo-icon" alt="logo icon">
 				</div>
 				<div>
-					<h4 class="logo-text">Dashkote</h4>
+					<h4 class="logo-text">Momo's Mart</h4>
 				</div>
 				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
 				</div>
@@ -45,101 +50,89 @@
 			<!--navigation-->
 			<ul class="metismenu" id="menu">
 				<li>
-					<a href="javascript:;" >
+					<a href="{{route('adminDashboard')}}">
 						<div class="parent-icon"><i class='bx bx-home-circle'></i>
 						</div>
-						<div class="menu-title">Dashboard</div>
+						<div class="menu-title">Admin Dashboard</div>
 					</a>
-					
 				</li>
-				
-				<li class="menu-label">UI Elements</li>
-				
 				<li>
-					<a href="javascript:;" class="has-arrow">
-						<div class="parent-icon"><i class='bx bx-cart'></i>
+					<a class="has-arrow" href="javascript:;">
+						<div class="parent-icon"><i class="bx bx-map-alt"></i>
 						</div>
-						<div class="menu-title">Categories</div>
+						<div class="menu-title">Orders</div>
 					</a>
 					<ul>
-						
-						<li> <a href="{{route('categories.index')}}"><i class="bx bx-right-arrow-alt"></i>Category Details</a>
+						<li> <a href="{{route('order')}}"><i class="bx bx-right-arrow-alt"></i>Orders</a>
 						</li>
-						<li> <a href="{{route('categories.create')}}"><i class="bx bx-right-arrow-alt"></i>Add New Category</a>
+						<li> <a href="{{route('area_orders')}}"><i class="bx bx-right-arrow-alt"></i>Area Wise Orde</a>
 						</li>
-						
 					</ul>
 				</li>
+				<li>
+					<a class="has-arrow" href="javascript:;">
+						<div class="parent-icon"><i class="bx bx-error"></i>
+						</div>
+						<div class="menu-title">Banners</div>
+					</a>
+					<ul>
+						<li> <a href="{{route('banners.index')}}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Banners</a>
+						</li>
+						<li> <a href="{{route('banners.create')}}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Add Banner</a>
+						</li>
+					</ul>
+				</li>
+
 				<li>
 					<a class="has-arrow" href="javascript:;">
 						<div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
 						</div>
+						<div class="menu-title">Categories</div>
+					</a>
+					<ul>
+						<li> <a href="{{route('categories.index')}}"><i class="bx bx-right-arrow-alt"></i>Categories</a>
+						</li>
+						<li> <a href="{{route('categories.create')}}"><i class="bx bx-right-arrow-alt"></i>Add New Category</a>
+						</li>
+					</ul>
+				</li>
+
+				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class='bx bx-cart'></i>
+						</div>
 						<div class="menu-title">Products</div>
 					</a>
 					<ul>
-						
-						<li> <a href=""><i class="bx bx-right-arrow-alt"></i>Products Details</a>
+						<li> <a href="{{route('products.index')}}"><i class="bx bx-right-arrow-alt"></i>Products</a>
 						</li>
-						<li> <a href=""><i class="bx bx-right-arrow-alt"></i>Add New Products</a>
+						<li> <a href="{{route('products.create')}}"><i class="bx bx-right-arrow-alt"></i>Add New Products</a>
 						</li>
-						
 					</ul>
 				</li>
+				
 				<li>
 					<a class="has-arrow" href="javascript:;">
 						<div class="parent-icon"><i class="bx bx-repeat"></i>
 						</div>
-						<div class="menu-title">Content</div>
+						<div class="menu-title">Network Management</div>
 					</a>
 					<ul>
-						<li> <a href="content-grid-system.html"><i class="bx bx-right-arrow-alt"></i>Grid System</a>
+						<li> <a href="{{route('network')}}"><i class="bx bx-right-arrow-alt"></i>Membear Network</a>
 						</li>
-						<li> <a href="content-typography.html"><i class="bx bx-right-arrow-alt"></i>Typography</a>
-						</li>
-						<li> <a href="content-text-utilities.html"><i class="bx bx-right-arrow-alt"></i>Text Utilities</a>
-						</li>
+						
 					</ul>
 				</li>
 				<li>
 					<a class="has-arrow" href="javascript:;">
 						<div class="parent-icon"> <i class="bx bx-donate-blood"></i>
 						</div>
-						<div class="menu-title">Icons</div>
+						<div class="menu-title">Countries</div>
 					</a>
 					<ul>
-						<li> <a href="icons-line-icons.html"><i class="bx bx-right-arrow-alt"></i>Line Icons</a>
+						<li> <a href="{{route('countries.index')}}"><i class="bx bx-right-arrow-alt"></i>Country</a>
 						</li>
-						<li> <a href="icons-boxicons.html"><i class="bx bx-right-arrow-alt"></i>Boxicons</a>
-						</li>
-						<li> <a href="icons-feather-icons.html"><i class="bx bx-right-arrow-alt"></i>Feather Icons</a>
-						</li>
-					</ul>
-				</li>
-				<li class="menu-label">Forms & Tables</li>
-				<li>
-					<a class="has-arrow" href="javascript:;">
-						<div class="parent-icon"><i class='bx bx-message-square-edit'></i>
-						</div>
-						<div class="menu-title">Forms</div>
-					</a>
-					<ul>
-						<li> <a href="form-elements.html"><i class="bx bx-right-arrow-alt"></i>Form Elements</a>
-						</li>
-						<li> <a href="form-input-group.html"><i class="bx bx-right-arrow-alt"></i>Input Groups</a>
-						</li>
-						<li> <a href="form-layouts.html"><i class="bx bx-right-arrow-alt"></i>Forms Layouts</a>
-						</li>
-						<li> <a href="form-validations.html"><i class="bx bx-right-arrow-alt"></i>Form Validation</a>
-						</li>
-						<li> <a href="form-wizard.html"><i class="bx bx-right-arrow-alt"></i>Form Wizard</a>
-						</li>
-						<li> <a href="form-text-editor.html"><i class="bx bx-right-arrow-alt"></i>Text Editor</a>
-						</li>
-						<li> <a href="form-file-upload.html"><i class="bx bx-right-arrow-alt"></i>File Upload</a>
-						</li>
-						<li> <a href="form-date-time-pickes.html"><i class="bx bx-right-arrow-alt"></i>Date Pickers</a>
-						</li>
-						<li> <a href="form-select2.html"><i class="bx bx-right-arrow-alt"></i>Select2</a>
+						<li> <a href="{{route('countries.create')}}"><i class="bx bx-right-arrow-alt"></i>Add Country</a>
 						</li>
 					</ul>
 				</li>
@@ -147,15 +140,42 @@
 					<a class="has-arrow" href="javascript:;">
 						<div class="parent-icon"><i class="bx bx-grid-alt"></i>
 						</div>
-						<div class="menu-title">Tables</div>
+						<div class="menu-title">States</div>
 					</a>
 					<ul>
-						<li> <a href="table-basic-table.html"><i class="bx bx-right-arrow-alt"></i>Basic Table</a>
+						<li> <a href="{{route('states.index')}}"><i class="bx bx-right-arrow-alt"></i>State</a>
 						</li>
-						<li> <a href="table-datatable.html"><i class="bx bx-right-arrow-alt"></i>Data Table</a>
+						<li> <a href="{{route('states.create')}}"><i class="bx bx-right-arrow-alt"></i>Add State</a>
 						</li>
 					</ul>
 				</li>
+				<li>
+					<a class="has-arrow" href="javascript:;">
+						<div class="parent-icon"><i class="bx bx-error"></i>
+						</div>
+						<div class="menu-title">Districts</div>
+					</a>
+					<ul>
+						<li> <a href="{{route('districts.index')}}"><i class="bx bx-right-arrow-alt"></i>Districts</a>
+						</li>
+						<li> <a href="{{route('districts.create')}}l"><i class="bx bx-right-arrow-alt"></i>Add Districts</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a class="has-arrow" href="javascript:;">
+						<div class="parent-icon"><i class='bx bx-message-square-edit'></i>
+						</div>
+						<div class="menu-title">Areas</div>
+					</a>
+					<ul>
+						<li> <a href="{{route('areas.index')}}"><i class="bx bx-right-arrow-alt"></i>Areas</a>
+						</li>
+						<li> <a href="{{route('areas.create')}}"><i class="bx bx-right-arrow-alt"></i>Add Area</a>
+						</li>
+					</ul>
+				</li>
+				
 				<li class="menu-label">Pages</li>
 				<li>
 					<a class="has-arrow" href="javascript:;">
@@ -275,14 +295,14 @@
 					</ul>
 				</li>
 				<li>
-					<a href="https://codervent.com/dashkote/documentation/index.html" target="_blank">
+					<a href="" target="_blank">
 						<div class="parent-icon"><i class="bx bx-folder"></i>
 						</div>
 						<div class="menu-title">Documentation</div>
 					</a>
 				</li>
 				<li>
-					<a href="https://themeforest.net/user/codervent" target="_blank">
+					<a href="" target="_blank">
 						<div class="parent-icon"><i class="bx bx-support"></i>
 						</div>
 						<div class="menu-title">Support</div>
@@ -291,6 +311,8 @@
 			</ul>
 			<!--end navigation-->
 		</div>
+		<!--end sidebar wrapper -->
+		<!--start header -->
 		<header>
 			<div class="topbar d-flex align-items-center">
 				<nav class="navbar navbar-expand">
@@ -363,7 +385,9 @@
 								</div>
 							</li>
 							<li class="nav-item dropdown dropdown-large">
-								
+								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">7</span>
+									<i class='bx bx-bell'></i>
+								</a>
 								<div class="dropdown-menu dropdown-menu-end">
 									<a href="javascript:;">
 										<div class="msg-header">
@@ -478,7 +502,9 @@
 								</div>
 							</li>
 							<li class="nav-item dropdown dropdown-large">
-								
+								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">8</span>
+									<i class='bx bx-comment'></i>
+								</a>
 								<div class="dropdown-menu dropdown-menu-end">
 									<a href="javascript:;">
 										<div class="msg-header">
@@ -629,16 +655,27 @@
 					</div>
 					<div class="user-box dropdown">
 						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<img src="" class="user-img" alt="user avatar">
+							<img src="https://via.placeholder.com/110x110" class="user-img" alt="user avatar">
 							<div class="user-info ps-3">
-                               @auth 
-								<p class="user-name mb-0">{{Auth::User()->name}}</p>
-								<p class="designattion mb-0">{{Auth::User()->email}}</p>
-                                @endauth
-								
+								<p class="user-name mb-0">Pauline Seitz</p>
+								<p class="designattion mb-0">Web Designer</p>
 							</div>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
+							</li>
+							<li><a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Settings</span></a>
+							</li>
+							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-home-circle'></i><span>Dashboard</span></a>
+							</li>
+							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-dollar-circle'></i><span>Earnings</span></a>
+							</li>
+							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-download'></i><span>Downloads</span></a>
+							</li>
+							<li>
+								<div class="dropdown-divider mb-0"></div>
+							</li>
+							
 							<li>
 								<form action="{{route('logout')}}" method="POST">
 									<a href="" class="dropdown-item"><i class='bx bx-log-out-circle'></i><input type="submit" value="Logout" class="btn"></a>
@@ -646,21 +683,26 @@
 								</form>
 							
 							</li>
+						
 						</ul>
 					</div>
 				</nav>
 			</div>
 		</header>
+		<!--end header -->
 		@yield('content')
-		
-        
+		<!--end page wrapper -->
+		<!--start overlay-->
 		<div class="overlay toggle-icon"></div>
-		 <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
 		<footer class="page-footer">
 			<p class="mb-0">Copyright © 2021. All right reserved.</p>
 		</footer>
 	</div>
+	<!--end wrapper-->
+	<!--start switcher-->
 	<div class="switcher-wrapper">
 		<div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
 		</div>
@@ -724,7 +766,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!--end switcher-->
 	<!-- Bootstrap JS -->
 	<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 	<!--plugins-->
