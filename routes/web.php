@@ -46,6 +46,7 @@ Route::post('/insert_address', [Home::class, 'insert_address'])->name('insert_ad
 Route::post('/order',[Home::class,'order'])->name('orderDetail');
 Route::get('/place_order/{id}',[Home::class,'place_order'])->name('place_order');
 Route::get('/confirm-order',[Home::class,'confirm'])->name('confirm');
+Route::get('check-partner/',[Home::class,'check_partner'])->name('check_partner');
 
 Route::get('add-to-cart-session/{id}',[Home::class,'getAddToCart'])->name('addToCartSession');
 
@@ -62,19 +63,21 @@ Route::prefix('admin')->group(function(){
     // orders
     Route::get('/order-details',[Admin::class,'orders'])->name('order');
     Route::get('/area-order-details',[Admin::class,'area_orders'])->name('area_orders');
+    Route::get('/product-order',[Admin::class,'product_order'])->name('product_order');
 
     Route::get('/cancle-order',[Admin::class,'cancle'])->name('cancle');
     Route::get('/order-confirm',[Admin::class,'order_confirm'])->name('order_confirm');
     Route::get('/out_for_delivery',[Admin::class,'out_for_delivery'])->name('out_for_delivery');
     Route::get('/order_completed',[Admin::class,'order_completed'])->name('order_completed');
-    Route::get('/assign-delivery/{id}',[Admin::class,'assign_delivery'])->name('assign_delivery');
-    Route::post('/submit-vendor/{id}',[Admin::class,'submit_vendor'])->name('submit_vendor');
+    Route::get('/assign-delivery/{id}',[Admin::class,'assign_delivery_boy'])->name('assign_delivery');
+    Route::post('/submit-delivery-boy/{id}',[Admin::class,'submit_delivery_boy'])->name('submit_delivery_boy');
     Route::get('/cancle_order/{id}',[Admin::class,'cancle_order'])->name('cancle_order');
     Route::get('/show_orders/{id}',[Admin::class,'show_orders'])->name('show_orders');
 });
 
 Route::prefix('partner')->group(function(){
     Route::get('/partner',[PartnerController::class,'index'])->name('partnerDashboard')->middleware('auth');
+    Route::get('/ecommerce',[PartnerController::class,'ecommerce'])->name('ecommerce')->middleware('auth');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

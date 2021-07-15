@@ -138,6 +138,16 @@ class Home extends Controller
         return view('product_detail',$data);
 
     }
+
+    public function check_partner(Request $request){
+        $id = $request->input('id');
+        $partner = Partner::where('id',$id)->firstOrFail();
+        $data = [
+            'partner'=>$partner,
+        ];
+        return view('partner_checkout',$data);
+        
+    }
     public function search(Request $r){
         if ($r->search == ""){
             $search = $r->input('searching');

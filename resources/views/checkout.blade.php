@@ -5,8 +5,16 @@
 <div class="container mt-4">
         <div class="row">
             <div class="col-lg-9">
-
-            <div class="card p-3 mt-2">
+                <form action="{{route('check_partner')}}" method="GET">
+                    @csrf
+                    <div class="form-group col">
+                        <label for="">Insert Id</label>
+                        <input type="text" name="id" required>
+                        <input type="submit" value="search" class="btn btn-danger btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    </div>
+                </form>
+               
+                <div class="card p-3 mt-5">
                     <div class="card-body text-dark" >
                         <h5>Insert your Address</h5>
                         <form action="{{route('insert_address')}}" method="POST">
@@ -102,7 +110,7 @@
                     </div>
                 </div>
                 @endif
-                
+
             </div>
             
                 <?php 
@@ -115,9 +123,9 @@
                         $discountTotal += $oi->cake->discount_price * $oi->qty;
                     ?>
                 @endforeach
-                <div class="col-sm-3 shadow card h-50 position-relative ">
+                <div class="col-sm-3 mt-5 shadow card h-50 position-relative ">
                 <div class="checkout-sec  mt-5 p-1">
-                  <div class="row  ">
+                  <div class="row">
                     <div class="col-sm-8 mx-auto">
                       <h4 class="order">Order Summary</h4>
                     </div>

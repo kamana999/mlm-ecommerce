@@ -2,18 +2,24 @@
 * {
 	padding: 0px;
 	margin: 0px;
-	box-sizing: border-box;
+	
+}
+.page-wrapper{
+	overflow: auto;
+  white-space: nowrap;
 }
 body {
 	height: 100vh;
 	display: grid;
 	align-items: center;
 	font-family: 'Poppins', sans-serif;
+	
 }
 .tree {
 	width: 100%;
 	height: auto;
 	text-align: center;
+	
 }
 .tree ul {
 	padding-top: 20px;

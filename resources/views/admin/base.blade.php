@@ -65,7 +65,9 @@
 					<ul>
 						<li> <a href="{{route('order')}}"><i class="bx bx-right-arrow-alt"></i>Orders</a>
 						</li>
-						<li> <a href="{{route('area_orders')}}"><i class="bx bx-right-arrow-alt"></i>Area Wise Orde</a>
+						<li> <a href="{{route('area_orders')}}"><i class="bx bx-right-arrow-alt"></i>Area Wise Order</a>
+						</li>
+						<li> <a href="{{route('product_order')}}"><i class="bx bx-right-arrow-alt"></i>Product Quantity</a>
 						</li>
 					</ul>
 				</li>

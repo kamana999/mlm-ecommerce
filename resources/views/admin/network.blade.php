@@ -26,28 +26,12 @@
                             </ul>
                         </li>
                     </ul> -->
-                    <!-- <ul>
-                        @foreach ($sponsrss as $c)
-                            @if($c->parent_id == null)
-                                <li>
-                                    <ul>
-                                    <a class=" " href="#" style="font-size:small">{{$c->first_name}}</a>
-                                        @if ($c->children)
-                                        @foreach ($c->children as $child)
-                                            <ul><li><a href="#" style="font-size:small" >{{$child->first_name}}</a></li> </ul>
-                                        @endforeach
-                                        @endif
-                                    </ul>
-                                </li>
-                            @endif
-                        @endforeach 
-                    </ul> -->
 
                     <ul>
                         @foreach($sponsr as $category)
                             <li>
                                 <ul>
-                                    <a href=""style="text-transform: uppercase;"  data-toggle="popover"title="Popover Header" data-content="Some content inside the popover">
+                                    <a href="">
                                         <img src="{{url('upload/'.$category->image)}}" alt="">
                                             {{ $category->first_name }}
                                     </a>

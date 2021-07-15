@@ -6,13 +6,13 @@
 
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">Countries</div>
+					<div class="breadcrumb-title pe-3">Area</div>
 					<div class="ps-3">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
 								</li>
-								<li class="breadcrumb-item active" aria-current="page">Add New Countries</li>
+								<li class="breadcrumb-item active" aria-current="page">Add New Area</li>
 							</ol>
 						</nav>
 					</div>
@@ -21,22 +21,36 @@
 
               <div class="card">
 				  <div class="card-body p-4">
-					  <h5 class="card-title">Add New Country</h5>
+					  <h5 class="card-title">Add New Area</h5>
 					  <hr/>
                         <div class="form-body mt-4">
                             <div class="row">
                             <div class="col-lg-12">
                             <div class="border border-3 p-4 rounded">
-                            <form action="{{route('countries.store')}}" method="POST">
+                            <form action="{{route('areas.store')}}" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label">Name</label>
-                                    <input class="form-control"  name="name"rows="3">
+                                    <input class="form-control"  name="name">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Code</label>
-                                    <input type="text" name="code" class="form-control">
+                                    <label class="form-label">Pincode</label>
+                                    <input class="form-control"  name="pincode">
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Delivery Charge</label>
+                                    <input class="form-control"  name="delivery_charge">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">District</label>
+                                    <select name="district_id" id="" class="form-control">
+                                        <option value="">Select a District</option>
+                                        @foreach ($districts as $c)
+                                            <option value="{{$c->id}}"{{ $c->id === old('country_id') ? 'selected' : '' }}>{{$c->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            
                                 
                                 <div class="col-12 mt-2">
                                 <div class="d-grid">

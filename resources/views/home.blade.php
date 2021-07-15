@@ -33,13 +33,7 @@
         <div class="row ">
             <div class="col-lg-7 m-auto ">
                   <div class="row text-center">
-                    @foreach($categories as $c)
-                      <div class="col-lg-4 col-4">
-                      
-                        <img src="{{url('upload/'.$c->image)}}" class="img-fluid" alt="apple">
-                      
-                      </div>
-                    @endforeach
+                    
                     
                   </div>
             </div>

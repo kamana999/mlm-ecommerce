@@ -31,7 +31,7 @@
 							<img src="{{url('upload/'.$cat->image)}}" class="card-img-top" alt="..." height="250">
 							<div class="card-body">
 								<h6 class="card-title cursor-pointer">{{$cat->id}}.   {{$cat->cat_title}}</h6>
-								<h6 class="card-title cursor-pointer">@if($cat->parent_id) Category-  {{$cat->parent_id}} @endif</h6>
+								<h6 class="card-title cursor-pointer">@if($cat->parent_id) Category-  {{$cat->parent->cat_title}} @endif</h6>
 								<!-- @if($cat->children)
 								@foreach ($cat->children as $child)
 								<h6 class="card-title cursor-pointer">{{$child->cat_title}}</h6>
