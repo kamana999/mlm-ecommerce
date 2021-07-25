@@ -13,27 +13,29 @@
     color: red;
 }
 .nav-link{
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
     color: black;
-   font-family: 'Rubik', sans-serif;
+    font-family: 'Rubik', sans-serif;
     text-transform: uppercase;
 }
 .nav-link:hover{
     color: black;
 }
 .search{
-    height: 40px;
+    height: 35px;
     widows: 80%;
     border-radius: 60px;
     outline: none;
     margin-right: -35px;
+   
     border: 2px solid rgb(248,26,92); 
 }
 .btn0 {
-    height: 40px;
+    height: 35px;
     width: 40%;
     outline: none;
+    margin-right: 100px;
     border: none;
     background: rgb(248,26,92);
     color: white;

@@ -63,4 +63,4 @@
         login.classList.remove("sign-up-mode");
       });
     </script>
-    @endsection
+@endsection

@@ -1,9 +1,18 @@
-@extends('admin.base')
-@section('content')
 
-        <div class="page-wrapper">
-			<div class="page-content">
-            <div class="row">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+            <div class="container mt-5">
+                <div class="row">
+                    <h3 class="mb-3 mx-auto">Mama Mart</h3>
 					<div class="col">
 						<div class="card radius-10 mb-0">
 							<div class="card-body">
@@ -12,7 +21,13 @@
 										<h5 class="mb-1">Recent Orders</h5>
 									</div>
 									<div class="ms-auto">
-										<a href="{{route('print_orders')}}" class="btn btn-primary btn-sm radius-30">Print Preview</a>
+										<a href="" onclick = "printme()" class="btn btn-primary ">Print</a>
+
+                                        <script type = "text/javascript">
+                                                function printme() {
+                                                window.print();
+                                                }
+                                        </script>  
 									</div>
 								</div>
 
@@ -23,9 +38,8 @@
 											   <th>Tracking ID</th>
 											   <th>Products Name</th>
 											   <th>Area</th>
+											   <th>Contact</th>
 											   <th>Delivery Address</th>
-											   <th>Status</th>
-											   <th>Actions</th>
 										   </tr>
 									   </thead>
 									   <tbody>
@@ -44,27 +58,9 @@
 													@endforeach
 													@endif
 												</div>
-												
-												
-											   <!-- </td>
-											   @if($o->orderitem)
-													@foreach($o->orderitem as $oi)
-													<td>{{$oi->delivery_date}}</td>
-													<td>{{$oi->delivery_time}}</td>
-													@endforeach
-													@endif</td> -->
+												<td>{{$a->address->contact}}</td>
 													<td>{{$o->address->area->name}}</td>
-											   <td>{{$o->address->name}}({{$o->address->contact}}){{$o->address->street}},{{$o->address->area->name}}{{$o->address->district->name}},({{$o->address->state->name}})</td>
-											   <td class=""><a href=""><span class="btn btn-sm bg-warning text-light-warning w-100">Pending</span></a></td>
-								
-											   <td>
-												<div class="d-flex order-actions">	
-													<a href="{{route('cancle_order',$o->id)}}" class=" btn btn-sm text-danger bg-light-danger border-0"><i class='bx bxs-trash'></i></a>
-													<a href="{{route('show_orders',$o->id)}}" class=" btn btn-sm text-info bg-light-info border-0"><i class='bx bxs-show'></i></a>
-				
-												</div>
-											   </td>
-                                            
+											   <td>{{$o->address->name}} ({{$o->address->street}},{{$o->address->area->name}}{{$o->address->district->name}},{{$o->address->state->name}})</td>
 										   </tr>
 										   @endforeach
 										
@@ -77,4 +73,7 @@
 					</div>
 				</div>				
 			</div>
-		</div>
+</body>
+</html>
+
+            

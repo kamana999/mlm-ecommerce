@@ -9,11 +9,21 @@
                 <div class="input-field">
                 <i class="fas fa-user"></i>
                   <input type="text" placeholder="Username" type="email" name="email" :value="old('email')" required autofocus>
+                  
                 </div>
                 <div class="input-field">
                 <i class="fas fa-lock"></i>
                   <input type="password" placeholder="Password" type="password" name="password" required autocomplete="current-password">
+                  
                 </div>
+                @if ($errors->any())
+                 
+                      <div class="alert alert-danger">
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </div>
+                  @endif
                 <input type="submit" value="login" class="btn2 solid">
                 
                 <p class="social-text">Or Sign in with social platforms</p>

@@ -39,7 +39,7 @@
 		<div class="sidebar-wrapper" data-simplebar="true">
 			<div class="sidebar-header">
 				<div>
-					<img src="{{asset('assets/images/logo-icon.png')}}" class="logo-icon" alt="logo icon">
+					<img src="{{asset('images/logo.jpeg')}}" class="logo-icon" alt="logo icon">
 				</div>
 				<div>
 					<h4 class="logo-text">Momo's Mart</h4>
@@ -53,7 +53,7 @@
 					<a href="{{route('partnerDashboard')}}">
 						<div class="parent-icon"><i class='bx bx-home-circle'></i>
 						</div>
-						<div class="menu-title">Partner Dashboard</div>
+						<div class="menu-title"> Dashboard</div>
 					</a>
 				</li>
 				
@@ -66,13 +66,12 @@
 						<div class="menu-title">Network</div>
 					</a>
 					<ul>
-						<li> <a href=""><i class="bx bx-right-arrow-alt"></i>Membear Network</a>
+						<li> <a href="{{route('partner_network')}}"><i class="bx bx-right-arrow-alt"></i>Membear Network</a>
 						</li>
-						
 					</ul>
 				</li>
 				<li>
-					<a href="{{route('ecommerce')}}">
+					<a href="{{route('ecommerce')}}" href="javascript:;">
 						<div class="parent-icon"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
 							<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
 							</svg>
@@ -84,95 +83,12 @@
 					<a class="has-arrow" href="javascript:;">
 						<div class="parent-icon"><i class="bx bx-error"></i>
 						</div>
-						<div class="menu-title">Errors</div>
+						<div class="menu-title">Downline</div>
 					</a>
 					<ul>
-						<li> <a href="errors-404-error.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>404 Error</a>
-						</li>
-						<li> <a href="errors-500-error.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>500 Error</a>
-						</li>
-						<li> <a href="errors-coming-soon.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>Coming Soon</a>
-						</li>
-						<li> <a href="error-blank-page.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>Blank Page</a>
+						<li> <a href="{{route('register_downline')}}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Add Downline</a>
 						</li>
 					</ul>
-				</li>
-				<li>
-					<a href="faq.html">
-						<div class="parent-icon"><i class="bx bx-help-circle"></i>
-						</div>
-						<div class="menu-title">FAQ</div>
-					</a>
-				</li>
-				<li>
-					<a href="pricing-table.html">
-						<div class="parent-icon"><i class="bx bx-diamond"></i>
-						</div>
-						<div class="menu-title">Pricing</div>
-					</a>
-				</li>
-				<li class="menu-label">Charts & Maps</li>
-				<li>
-					<a class="has-arrow" href="javascript:;">
-						<div class="parent-icon"><i class="bx bx-line-chart"></i>
-						</div>
-						<div class="menu-title">Charts</div>
-					</a>
-					<ul>
-						<li> <a href="charts-apex-chart.html"><i class="bx bx-right-arrow-alt"></i>Apex</a>
-						</li>
-						<li> <a href="charts-chartjs.html"><i class="bx bx-right-arrow-alt"></i>Chartjs</a>
-						</li>
-						<li> <a href="charts-highcharts.html"><i class="bx bx-right-arrow-alt"></i>Highcharts</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a class="has-arrow" href="javascript:;">
-						<div class="parent-icon"><i class="bx bx-map-alt"></i>
-						</div>
-						<div class="menu-title">Maps</div>
-					</a>
-					<ul>
-						<li> <a href="map-google-maps.html"><i class="bx bx-right-arrow-alt"></i>Google Maps</a>
-						</li>
-						<li> <a href="map-vector-maps.html"><i class="bx bx-right-arrow-alt"></i>Vector Maps</a>
-						</li>
-					</ul>
-				</li>
-				<li class="menu-label">Others</li>
-				<li>
-					<a class="has-arrow" href="javascript:;">
-						<div class="parent-icon"><i class="bx bx-menu"></i>
-						</div>
-						<div class="menu-title">Menu Levels</div>
-					</a>
-					<ul>
-						<li> <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Level One</a>
-							<ul>
-								<li> <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Level Two</a>
-									<ul>
-										<li> <a href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Level Three</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="" target="_blank">
-						<div class="parent-icon"><i class="bx bx-folder"></i>
-						</div>
-						<div class="menu-title">Documentation</div>
-					</a>
-				</li>
-				<li>
-					<a href="" target="_blank">
-						<div class="parent-icon"><i class="bx bx-support"></i>
-						</div>
-						<div class="menu-title">Support</div>
-					</a>
 				</li>
 			</ul>
 			<!--end navigation-->
@@ -523,24 +439,12 @@
 						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							<img src="https://via.placeholder.com/110x110" class="user-img" alt="user avatar">
 							<div class="user-info ps-3">
-								<p class="user-name mb-0">Pauline Seitz</p>
+								<p class="user-name mb-0">{{Auth::User()->name}}</p>
 								<p class="designattion mb-0">Web Designer</p>
 							</div>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-end">
-							<li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
-							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Settings</span></a>
-							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-home-circle'></i><span>Dashboard</span></a>
-							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-dollar-circle'></i><span>Earnings</span></a>
-							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-download'></i><span>Downloads</span></a>
-							</li>
-							<li>
-								<div class="dropdown-divider mb-0"></div>
-							</li>
+						
 							
 							<li>
 								<form action="{{route('logout')}}" method="POST">

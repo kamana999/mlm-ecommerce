@@ -80,6 +80,8 @@ body {
 .tree li a {
 	border: 1px solid #ccc;
 	padding: 10px;
+	background: lightgray;
+	color:black;
 	display: inline-grid;
 	border-radius: 5px;
 	text-decoration-line: none;

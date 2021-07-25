@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="container mt-5 p-5">
+<div class="container">
     <div class="row">
-        <div class="col-sm-6 mx-auto shadow card h-50 position-relative">
-        <h3 class="mx-auto  mt-5"><strong>Order Details</strong></h3>
+        <div class="col-4 mt-4 mx-auto shadow card h-50 position-relative">
+       
         <?php 
             $total = 0;
             $discountTotal = 0;
@@ -16,9 +16,11 @@
                 $discountTotal += $oi->cake->discount_price * $oi->qty;
             ?>
         @endforeach
-            <div class="table-responsive mx-auto">
-              <table class="table  table-borderless mb-0">
+            <div class="table-responsive p-5">
+            <h3 class=""><strong>Order Details</strong></h3>
+              <table class="table  table-borderless mb-0 p-3">
                 <tbody>
+              
                   <tr>
                     <th class="text-capitalize"style="font-size: 15px;font-weight: bolder" scope="row"><strong>Order ID</strong></th>
                     <td class="text-capitalize">{{$order->id}}</td>
@@ -107,7 +109,7 @@
                   </tbody>
                  
               </table>
-              <a href="{{route('confirm')}}">
+              <a href="{{route('confirm_partner_order',$partner->id)}}">
               <button type = "submit" class="btn btn-success mb-4">Place Order</button>
               </a>
             </div>

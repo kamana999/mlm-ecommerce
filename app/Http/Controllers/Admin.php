@@ -6,19 +6,34 @@ use App\Models\User;
 use App\Models\Partner;
 use App\Models\Order;
 use App\Models\Area;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\District;
 use Carbon\Carbon;
 use App\Models\Category;
 use App\Models\Item;
 use App\Models\Delivery_Person;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Laravel\Jetstream\Jetstream;
+
 class Admin extends Controller
 {
     public function index(Request $request){
         if(User::where([['id',Auth::id()],['isAdmin',1]])->exists()){
             $data = [
+                'category'=>Category::all()->count(),
+                'order'=>Order::all()->count(),
+                'orders'=>Order::all(),
+                'partner'=>Partner::all()->count(),
+                'partners'=>Partner::all(),
+                'product'=>Item::all()->count(),
+                'products'=>Item::all(),
             ];
-            return view('admin.home');
+            return view('admin.home', $data);
         }
         elseif(User::where([['id',Auth::id()],['isPartner',1]])->exists()){
             return redirect()->route('partnerDashboard');
@@ -30,11 +45,11 @@ class Admin extends Controller
    
         $data = [
             'sponsr' => Partner::where('parent_id', '=', null)->get(),
-            'sponsrs'=>Partner::pluck('first_name','id')->all(),
-            'sponsrss'=>Partner::all(),
+            
         ];
         return view('admin.network',$data);
     }
+
     public function orders(Request $request){
         $order = Order::where(array(['ordered',1],['isPending',1]))->get();
         $data = [
@@ -43,6 +58,16 @@ class Admin extends Controller
         ];
         return view('admin.order',$data);
     }
+
+    public function print_orders(Request $request){
+        $order = Order::where(array(['ordered',1],['isPending',1]))->get();
+        $data = [
+            'categories'=>Category::all()->count(),  
+            'orderitem'=>Order::where(array(['isPending',1],['ordered',1]))->get(),
+        ];
+        return view('admin.print_order',$data);
+    }
+
     public function area_orders(Request $request){
         $date = Carbon::now();
         $todayDate = $date->toDateString();
@@ -53,6 +78,18 @@ class Admin extends Controller
             'orderitem'=>Order::where(array(['isPending',1],['ordered',1],['order_date',$todayDate]))->get(),
         ];
         return view('admin.area_order',$data);
+    }
+
+    public function print_area_order($id){
+        $date = Carbon::now();
+        $todayDate = $date->toDateString();
+        $area=Area::find($id);
+        $data = [
+            'categories'=>Category::all()->count(),  
+            'orderitem'=>Order::where(array(['isPending',1],['ordered',1],['order_date',$todayDate],['area',$area->pincode]))->get(),
+        ];
+        return view('admin.print_area_order',$data);
+
     }
 
     public function product_order(){
@@ -143,5 +180,77 @@ class Admin extends Controller
             'orders'=>$order,
         ];
         return view('admin.show_orders',$data);
+    }
+
+    public function register_downline_admin(){
+        return view('admin.register_downline');
+    }
+
+    public function submit_downline_admin(Request $request){
+        $user  = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->isPartner = 1;
+        $user->save();
+        return redirect()->route('downline_details_page_admin',$user->id);
+    }
+
+    public function downline_details_page_admin($id){
+        $user = Auth::id();
+        $data = [
+            'country'=>Country::all(),
+            'state'=>State::all(),
+            'district'=>District::all(),
+            'area'=>Area::all(),
+            'user'=>User::find($id),
+            // 'sponsars'=>Partner::with('children')->whereNull('parent_id')->get(),
+            'sponsars'=>Partner::all(),
+            'partner'=>Partner::where('user_id',$user)->first(),
+        ];
+        return view('admin.downline_detail',$data);
+    }
+
+    public function partner_details_admin(Request $request){
+        $admin = User::where('isAdmin',1)->first();
+        $user = Auth::id();
+        $partner = Partner::where('user_id',$user)->first();
+        $request->validate([
+            'first_name'=>'required',
+            'last_name'=>'required',
+            'street'=>'required',
+            'dob'=>'required',
+            'contact'=>'required|numeric|min:10',
+            'street'=>'required|string',
+            'country_id'=>'required',
+            'state_id'=>'required',
+            'area_id'=>'required',
+            'district_id'=>'required',
+            'user_id'=>'required',
+        ]);
+
+        $filename = time(). "." . $request->image->extension();
+        $request->image->move(public_path("upload"), $filename);
+
+        $vendor = new Partner();
+        $vendor->first_name = $request->input('first_name');
+        $vendor->last_name = $request->input('last_name');
+        $vendor->contact = $request->input('contact');
+        $vendor->dob = $request->input('dob');
+        $vendor->optional_contact= $request->input('optional_contact');
+        $vendor->street = $request->input('street');
+        $vendor->country_id = $request->input('country_id');
+        $vendor->state_id = $request->input('state_id');
+        $vendor->district_id = $request->input('district_id');
+        $vendor->area_id = $request->input('area_id');
+        $vendor->user_id =$request->user_id;
+        // if($request->parent_id == null){
+        //     $vendor->parent_id = $admin;
+        // }
+        $vendor->parent_id = $request->parent_id;
+        $vendor->position = $request->position;
+        $vendor->image = $filename;
+        $vendor->save();      
+        return redirect()->route('home');
     }
 }

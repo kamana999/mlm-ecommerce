@@ -54,9 +54,9 @@
         transform: scale(1.03);
     }
 </style>
-<div class="container p-5">
-    <div class="row">
-        <div class="col-lg-5   p-4 "fixed>
+<div class="container mt-5">
+    <div class="row mt-5">
+        <div class="col-lg-5 mt-5 p-4 "fixed>
             <div class="demo">
                 <a href="" >
                     <img src="{{url('upload',$cakes->image)}}" style="height:350px; width:350px;" id="currentImage">
@@ -75,7 +75,7 @@
             </div>
             
         </div>
-        <div class="col-lg-7  p-4 mx-auto">
+        <div class="col-lg-7 mt-5 p-4 mx-auto">
                   <h3>{{$cakes->title}}</h3>
                   <small>Ratings : <i class="far fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></small>
                   @if($cakes->discount_price)
@@ -114,21 +114,19 @@
                         </div>
                     </div>
                 
-                    <small class="fw-bold">Qty :</small>
-                    <input type="tel" for="quantity"size="2" class=""><span class="bg-light  fw-bold"> Kg</span>
-                    <i class="fas fa-plus shadow border border-1 p-1" style="cursor: pointer;margin-right: -10px"></i>&nbsp;
-                    <i class="fas fa-minus shadow border border-1 p-1" style="cursor: pointer;"></i>
-                <div class="container mt-5">
+                     <div class="container mt-5">
                     <div class="row">
                     <div class="col-lg-6">
                         @if(!$area)
-                            <div class="">
+                            <div>
                                 <form action="{{route('area',$cakes->id)}}" method="GET">
                                     @csrf
                                     <div class="my-3"><span class="fw-bold">Check Aviablitity :</span>
-                                        <input type="text" value="" class="form-control p-2" name="area" placeholder="Enter Pincode" style="border: 1px solid #ff9212;" required>
+                                        <div class="form-group mt-3">
+                                        <input type="text" value="" class="form-inline p-2" name="area" placeholder="Enter Pincode" style="border: 1px solid #ff9212;" required>
+                                        <input type="submit" value="search" class="btn btn-info  btn-sm text-white">
+                                        </div>
                                         <p class="text-danger">Please Select Pincode First</p>
-                                        <input type="submit"hidden>
                                     </div>
                                 </form> 
                             </div>
@@ -161,25 +159,38 @@
                             @endguest  
                         @endif
                 </div>
+                </div>
             </div>
-            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+    <h4>Related Products</h4>
+    @foreach($related as $p)
+                <div class="col-lg-3 text-center">
+            <a href="{{route('product_detail',$p->id)}}">
+              <div class="card border-0 bg-light mb-2">
+                <div class="card-body">
+                  <img src="{{url('upload/'.$p->image)}}" class="img-fluid">
+                </div>
+              </div>
+              <h6>{{$p->title}}</h6>
+              @if($p->discount_price)
+                <p>&#8377;{{$p->discount_price}}/{{$p->weight_type}}<span><del> &#8377;{{$p->price}}</del></span></p>
+              @else
+              <p>&#8377;{{$p->price}}/{{$p->weight_type}}</p>
+              @endif
+            </a>
+          </div>
+    @endforeach
     </div>
 </div>
-<script>
-        var dtToday = new Date();
 
-        var month = dtToday.getMonth() + 1;
-        var day = dtToday.getDate();
-        var year = dtToday.getFullYear();
-        if(month < 10)
-            month = '0' + month.toString();
-        if(day < 10)
-            day = '0' + day.toString();
-        
-        var maxDate = year + '-' + month + '-' + day;
-        
-        $('#txtDate').attr('min', maxDate);
-    </script>
+<div class="container">
+    <div class="row">
+    
+    </div>
+</div>
+
 <script type="text/javascript">
 
     (function(){

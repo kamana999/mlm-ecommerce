@@ -15,4 +15,19 @@ class Partner extends Model
     public function parent() {
         return $this->belongsTo('App\Models\Partner', 'parent_id');
     }
+
+    public function country(){
+        return $this->belongsTo('App\Models\Country');
+    }
+    public function state(){
+        return $this->belongsTo('App\Models\State');
+    }public function district(){
+        return $this->belongsTo('App\Models\District');
+    }
+    public function area(){
+        return $this->belongsTo('App\Models\Area');
+    }
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }

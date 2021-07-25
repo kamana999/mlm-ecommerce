@@ -18,6 +18,6 @@ class Category extends Model
         return $this->belongsTo('App\Models\Category', 'parent_id');
     }
     public function items(){
-        return $this->hasMany('App\Models\Cakes');
+        return $this->hasMany('App\Models\Item');
     }
 }

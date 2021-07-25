@@ -1,14 +1,14 @@
 @extends('base')
 @section('content')
-  <section class="cart-section my-5">
+  <section class="cart-section  p-5 mt-5">
   @if ($message = Session::get('error'))
         <div class="alert alert-danger alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button>	
+            	
                 <strong>{{ $message }}</strong>
         </div>
     @endif
     @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block">
+        <div class="alert alert-success alert-blockmy-5 p-5 mt-5">
             <button type="button" class="close" data-dismiss="alert">×</button>	
                 <strong>{{ $message }}</strong>
         </div>
@@ -26,6 +26,20 @@
                 ?>
               @endif
 
+              @if(! $order->area)
+              <div>
+                                <form action="search_area_checkout" method="GET">
+                                    @csrf
+                                    <div class="my-3"><span class="fw-bold">Check Aviablitity :</span>
+                                        <div class="form-group mt-3">
+                                        <input type="text" value="" class="form-inline p-2" name="area" placeholder="Enter Pincode" style="border: 1px solid #ff9212;" required>
+                                        <input type="submit" value="search" class="btn btn-info  btn-sm text-white">
+                                        </div>
+                                        <p class="text-danger">Please Select Pincode First</p>
+                                    </div>
+                                </form> 
+                            </div>
+              @endif
               @foreach($orderitem as $oi)
                 <?php 
                     $total += $oi->cake->price * $oi->qty;
@@ -50,12 +64,14 @@
                     @endif
                     
                     <small class="fw-bold">Qty :</small>
-                    <input type="tel" for="quantity"size="2" class="" value="{{$oi->qty}}" name="qty"><span class="bg-light  fw-bold"> Kg</span>
+                    <input type="tel" for="quantity"size="2" class="" value="{{$oi->qty}}" readonly name="qty"><span class="bg-light  fw-bold"> Kg</span>
                     <a href="{{route('add_to_cart_details',['id'=>$oi->cake->id])}}"><i class="fas fa-plus shadow border border-1 p-1" style="cursor: pointer;margin-right: -10px"></i>&nbsp;</a>
                     <a href="{{route('removecart',['id'=>$oi->cake->id])}}"><i class="fas fa-minus shadow border border-1 p-1" style="cursor: pointer;"></i></a>
                     <div class="col-sm-12 text-end">
                       <a href="{{route('removeitem',['id'=>$oi->cake->id])}}"><button class="btn btn-outline-danger float-right">Remove</button></a>
                     </div>
+                    <small class="fw-bold">Sub Ammount : @if($oi->cake->discount_price) {{$oi->cake->discount_price * $oi->qty}} @else {{$oi->cake->price * $oi->qty}} @endif</small>
+                    <input type="tel" for="quantity"size="2" class="" value="@if($oi->cake->discount_price) {{$oi->cake->discount_price * $oi->qty}} @else {{$oi->cake->price * $oi->qty}} @endif" readonly name="total_price">
                   </div>
                 </div>
               @endforeach
@@ -154,9 +170,9 @@
             @else
               <div class="container">
                 <div class="row">
-                  <div class="col-lg-6 mx-auto">
-                  <h2>Your Cart is  Empty</h3>
-              <h2><a href="{{route('home')}}" class="btn mb-5 mx-auto"style="background-color: #8ea47e; color: white;"> Continue Shopping</a>
+                  <div class="col-lg-5 mx-auto">
+                  
+              <h2><a href="{{route('home')}}" class="btn mb-5 mt-5 mx-auto"style="background-color: #8ea47e; color: white;"> Continue Shopping</a>
                   </div>
                 </div>
               </div>

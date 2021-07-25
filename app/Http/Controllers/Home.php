@@ -16,6 +16,7 @@ use App\Models\Partner;
 use App\Models\Address;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\Feedback;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -34,20 +35,89 @@ class Home extends Controller
         elseif(User::where([['id',Auth::id()],['isPartner',1]])->exists()){
             return redirect()->route('partnerDashboard');
         }
+        $user_id = Auth::id();    
+        $order = Order::where([['user_id',$user_id],['ordered',0]])->first();
         $data = [
             'categories'=>Category::all(),
             'banners'=>Banner::all(),
-            'products'=>Item::all(),
+            'products'=>Item::all()->take(8),
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
+            'fruit'=>Item::where('category_id','=',1)->get(),
+            'vegetable'=>Item::where('category_id','=', 2)->get(),
         ];
         return view('home', $data);
     }
 
+    public function products(Request $request){
+        $user_id = Auth::id();    
+        $data = [
+            'product'=>Item::all(),
+            'products'=>Item::all(),
+            'category'=>Category::all(),
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
+           
+        ];
+        return view('products',$data);
+    }
+
+    public function category($id){
+        $cat = Category::find($id);
+        $user_id = Auth::id();    
+        $pro = Item::where('category_id',$cat->id)->get();
+        $data = [
+            'product'=>$pro,
+            'products'=>Item::all(),
+            'category'=>Category::all(),
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(), 
+        ];
+        return view('products',$data);
+    }
+
+    public function contact(){
+        $user_id = Auth::id();
+        $data = [
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(), 
+        ];
+        return view('contact',$data);
+    }
+
+    public function about(){
+        $user_id = Auth::id();
+        $data = [
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(), 
+        ];
+        return view('about',$data);
+    }
+
+    public function feedback(Request $request){
+        $request->validate([
+            'name'=> 'required',
+            'email'=> 'required',
+            'description'=> 'required',
+        ]);
+        $feedback = new Feedback();
+        $feedback->name = $request->name;
+        $feedback->email = $request->email;
+        $feedback->description = $request->description;
+        $feedback->save();
+        return redirect()->back()->with('success','Feedback send successfully !!');
+
+    }
+
     public function new_login(Request $request){
-        return view('new_login');
+        $user_id = Auth::id();    
+        $data = [
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
+        ];
+        return view('new_login',$data);
     }
 
     public function partner_login(Request $request){
-        return view('partner_login');
+        $user_id = Auth::id();    
+        $data = [
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
+        ];
+        return view('partner_login',$data);
     }
 
     public function partner_register(Request $request){
@@ -61,14 +131,17 @@ class Home extends Controller
     }
 
     public function partner_details_page($id){
+        $user_id = Auth::id();    
         $data = [
             'country'=>Country::all(),
             'state'=>State::all(),
             'district'=>District::all(),
             'area'=>Area::all(),
             'user'=>User::find($id),
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
             // 'sponsars'=>Partner::with('children')->whereNull('parent_id')->get(),
             'sponsars'=>Partner::all(),
+            
         ];
         return view('partner_detail',$data);
     }
@@ -117,58 +190,67 @@ class Home extends Controller
     public function product_detail(Request $request, $id){
         $item = Item::where(array(['id', $id]))->firstOrFail();
         $area = $request->input('area');
+        $user_id = Auth::id();    
         $data = [
             'cakes'=>Item::find($id),
             'upgrade'=>Item::where('id', '!=', $item->id)->where('title', $item->title)->get(),
             'area'=>Area::where('pincode',$area)->first(),
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
             'related'=> Item::where('category_id', '=', $item->category->id)->where('id', '!=', $item->id)->with('children')->whereNull('parent_id')->get(),
         ];
         return view('product_detail',$data);
     }
+    
     public function search_area(Request $request, $id){
         $item = Item::where(array(['id', $id]))->firstOrFail();
         $area = $request->input('area');
+        $user_id = Auth::id();  
         $search = Area::where('pincode',$area)->get();
         $data = [
             'cakes'=>Item::find($id),
             'upgrade'=>Item::where('id', '!=', $item->id)->where('title', $item->title)->get(),
             'area'=>Area::where('pincode',$area)->first(),
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
             'related'=> Item::where('category_id', '=', $item->category->id)->where('id', '!=', $item->id)->with('children')->whereNull('parent_id')->get(),
         ];
         return view('product_detail',$data);
 
     }
 
-    public function check_partner(Request $request){
-        $id = $request->input('id');
-        $partner = Partner::where('id',$id)->firstOrFail();
-        $data = [
-            'partner'=>$partner,
-        ];
-        return view('partner_checkout',$data);
-        
+    public function search_area_checkout(Request $request){
+        $area = $request->input('area');
+        $user_id = Auth::id();    
+        $order = Order::where([['user_id',$user_id],['ordered',0]])->first();
+        $order->area = $area;
+        $order->save();
+        return redirect()->route('carts');
+
     }
+
     public function search(Request $r){
         if ($r->search == ""){
             $search = $r->input('searching');
-            $cakes = Item::query()->where('title', 'like', "%{$search}%")->orWhere('category_id', 'like', "%{$search}%")
+            $user_id = Auth::id();  
+            $product = Item::query()->where('title', 'like', "%{$search}%")
                 ->orderBy('created_at', 'desc')->get();
             $data = [
                 'categories'=>Category::all(),
-                'cakes'=>$cakes,
-                'area'=>null,
+                'product'=>$product,
+                "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
+                
                 
             ];
             return view('search',$data);
         }
         else{
             $search = $r->input('searching');
-            $cakes = Item::query()->where('title', 'like', "%{$search}%")->orWhere('category_id', 'like', "%{$search}%")
+            $user_id = Auth::id();  
+            $product = Item::query()->where('title', 'like', "%{$search}%")
                 ->orderBy('created_at', 'desc')->get();
             $data = [
                 'categories'=>Category::all(),
-                'cakes'=>$cakes,
-                'area'=>Area::where('pincode',$search)->first(),
+                'product'=>$product,
+                "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
                 
             ];
             return view('search',$data);
@@ -200,16 +282,20 @@ class Home extends Controller
             $data = [
                 "categories"=>Category::all(),
                 "orderitem"=>Order::find($order->id)->orderitem,
+                "order"=>Order::find($order->id),
                 "coupon"=>Order::find($order->id),
+                "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
                 'area'=>Area::where('pincode',$search)->first(),
             ];
             return view('add_to_cart',$data);
         }
         else{
             if(Session::has('order_items')){
+                $user_id = Auth::id(); 
                 $oldcart = Session::get('order_items');
-                $cart = new Cart($oldcart);
-                return view('add_to_cart',['products' => $cart->items,'totalPrice' => $cart->totalPrice]);
+                $carts = new Cart($oldcart);
+                $cart=OrderItem::where([['user_id',$user_id],['ordered',0]])->count();
+                return view('add_to_cart',['products' => $carts->items,'totalPrice' => $carts->totalPrice,'cart'=>$cart]);
             }
         }
     }
@@ -285,7 +371,7 @@ class Home extends Controller
                     }
                 }
             }
-            return redirect('carts')->with(['success' => 'Course removed successfully from your cart','alert'=>'alert-danger']);
+            return redirect()->route('carts')->with(['success' => 'Item removed successfully from your cart','alert'=>'alert-danger']);
         }
         else{
            return redirect()->back();
@@ -303,7 +389,7 @@ class Home extends Controller
                     $orderItem->delete();
                 }
             }   
-            return redirect('carts')->with(['success' => 'Cake removed successfully from your cart','alert'=>'alert-danger']);
+            return redirect()->route('carts')->with(['success' => 'Item removed successfully from your cart','alert'=>'alert-danger']);
         }
         else {
             return redirect()->back();   
@@ -347,6 +433,7 @@ class Home extends Controller
                 'address'=>Address::where('user_id',$user)->get(),
                 "orderitem"=>Order::find($order->id)->orderitem,
                 "coupon"=>Order::find($order->id),
+                "cart"=>OrderItem::where([['user_id',$user],['ordered',0]])->count(),
                 'delivery_charge'=> Area::where('pincode',$order->area)->first(),
             ];
             return view('checkout',$data);
@@ -399,10 +486,12 @@ class Home extends Controller
 
     public function place_order(Request $r,$order_id){
         $order = Order::find($order_id);
+        $user_id = Auth::id();
         $data = [
             'order'=>$order,
             "orderitem"=>Order::find($order->id)->orderitem,
             'categories'=>Category::All(),
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
         ];
         return view('place_order',$data);
     }
@@ -423,8 +512,31 @@ class Home extends Controller
 
         $data = [
             'categories'=>Category::All(),
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
         ];
         return view('confirm_order',$data);
     }
 
+    public function my_orders(Request $r){
+        $user = Auth::id();
+        $order = Order::where(array(['ordered',1],['user_id',$user]))->get();
+        $data = [
+            'order'=>$order,
+            "cart"=>OrderItem::where([['user_id',$user],['ordered',0]])->count(),
+        ];
+        return view('my_order',$data);
+    }
+
+    public function show_my_orders($order_id){
+        $user_id = Auth::id();
+        $order = Order::find($order_id);
+        $data = [
+            'categories'=>Category::all()->count(),
+            'orders'=>$order,
+            "cart"=>OrderItem::where([['user_id',$user_id],['ordered',0]])->count(),
+        ];
+        return view('show_orders',$data);
+    }
+
+    
 }

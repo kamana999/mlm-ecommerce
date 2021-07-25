@@ -1,23 +1,69 @@
 @extends('base')
 @section('content')
-
-
-<div class="container mt-4">
+    <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <form action="{{route('check_partner')}}" method="GET">
-                    @csrf
-                    <div class="form-group col">
-                        <label for="">Insert Id</label>
-                        <input type="text" name="id" required>
-                        <input type="submit" value="search" class="btn btn-danger btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <div class="card p-3 mt-5 mb-5">
+                    <div class="card-body text-dark" >
+                        <h4 class="mb-2">Partner Details</h5>
+                        <form action="">
+                           
+                           <div class="row  mb-3">
+                            <div class="form-group col">
+                                <label for="">First Name</label>
+                                <input type="text" name="name" value="{{$partner->first_name}}" class="form-control">
+                            </div>
+                            <div class="form-group col">
+                                <label for="">Last Name</label>
+                                <input type="text" name="name" value="{{$partner->last_name}}" class="form-control">
+                            </div>
+                            
+                           </div>
+                            <div class="row  mb-3">
+                                <div class="form-group col">
+                                    <label for="">Contact</label>
+                                    <input type="text" name="contact" class="form-control" value="{{$partner->contact}}">
+                                </div>
+                                <div class="form-group col">
+                                    <label for="">Contact2</label>
+                                    <input type="text" name="contact2" class="form-control" value="{{$partner->optional_contact}}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="form-group col">
+                                    <label for="">Street</label>
+                                    <input type="text" name="contact2" class="form-control" value="{{$partner->street}}">
+                                </div>
+                            </div>
+                            <div class="row  mb-3">
+                                <div class="form-group col">
+                                <label for="">Country<span class="text-danger"> * </span></label>
+                                <input type="text" class="form-control" value="{{$partner->country->name}}">
+                                
+                                </div>
+                                <div class="form-group col">
+                                <label for="">State<span class="text-danger"> * </span></label>
+                                <input type="text" class="form-control" value="{{$partner->state->name}}">
+                                </div>
+                                <div class="form-group col">
+                                <label for="">District<span class="text-danger"> * </span></label>
+                                <input type="text" class="form-control" value="{{$partner->district->name}}">
+                               
+                                </div>
+                                <div class="form-group col">
+                                <label for="">Area<span class="text-danger"> * </span></label>
+                                <input type="text" class="form-control" value="{{$partner->area->name}}">
+                                
+                                </div>
+                            </div>
+                            
+                        </form>
                     </div>
-                </form>
-               
+                </div>
                 <div class="card p-3 mt-5">
                     <div class="card-body text-dark" >
                         <h5>Insert your Address</h5>
-                        <form action="{{route('insert_address')}}" method="POST">
+                        <form action="{{route('insert_partner_address',$partner->id)}}" method="POST">
                             @csrf
                            <div class="row">
                             <div class="form-group col">
@@ -83,40 +129,11 @@
                         </form>
                     </div>
                 </div>
-
-                @if ($address)
-                <div class="card mt-4 mb-3 p-2">
-                    <div class="card-body">
-                    <h5>Select Details</h5>
-                    <form action="{{route('orderDetail')}}" method="POST" >
-                            @csrf
-                            <div class="mb-3">
-                                <select name="address" class="form-control" required>
-                                    <option value="">Select default address</option>
-                                    @foreach ($address as $a)
-                                    <option value="{{$a->id}}">{{$a->name}} {{ $a->contact }} | {{$a->street}},{{$a->area->name }} ({{$a->district->name}}, {{$a->state->name}})</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <select name="delivery" class="form-control" required>
-                                    <option value="">Select Delivery Type</option>
-                                    <option value="Standard Delivery">Standard Delivery (Free)</option>
-                                    <option value="Economy Delivery">Economy Delivery charge (Rs.{{$delivery_charge->delivery_charge}}) </option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary mt-3 form-control" type="submit">Confirm Order</button>
-                        </form>
-                    </div>
-                </div>
-                @endif
-
             </div>
-            
-                <?php 
+            <?php 
                     $total = 0;
                     $discountTotal = 0;
-                ?>
+            ?>
                 @foreach($orderitem as $oi)
                     <?php 
                         $total += $oi->cake->price * $oi->qty;
@@ -201,14 +218,39 @@
                           @endif
                       </tr>
                     </table>
+                   
                     @endif
                     
                   </div>
                     </div>
+
+                    <div class="card mt-3 mb-3 p-2">
+                    <div class="card-body">
+                    <h5>Select Delivery Details</h5>
+                    <form action="{{route('orderPartnerDetail',$partner->id)}}" method="POST" >
+                            @csrf
+                            <div class="mb-3">
+                                <select name="address" class="form-control" required>
+                                    <option value="">Select default address</option>
+                                    @foreach ($address as $a)
+                                    <option value="{{$a->id}}">{{$a->name}} {{ $a->contact }} | {{$a->street}},{{$a->area->name }} ({{$a->district->name}}, {{$a->state->name}})</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <select name="delivery" class="form-control" required>
+                                    <option value="">Select Delivery Type</option>
+                                    <option value="Standard Delivery">Standard Delivery (Free)</option>
+                                    <option value="Economy Delivery">Economy Delivery charge (Rs.{{$delivery_charge->delivery_charge}}) </option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary mt-3 form-control" type="submit">Confirm Order</button>
+                        </form>
+                    </div>
+                </div>
                 
                 </div>
         </div>
-            
     </div>
-
 @endsection
+

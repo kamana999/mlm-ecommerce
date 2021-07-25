@@ -7,29 +7,32 @@
                 
                 <div class="row">
                     @foreach($product as $p)
-                    <?php 
-                    $totalQty = 0;
-                ?>
+                        <?php 
+                        $totalQty = 0;
+                        ?>
                         <div class="col-lg-3">
-                            <h4>{{$p->title}} ({{$p->weight}}/{{$p->weight_type}})</h4>
-                            @foreach($orderitem as $o)
-                            
-                                @if($o->orderitem)
-                                    @foreach($o->orderitem as $oi)
+                            <div class="card mt-3 radius-10 mb-0">
+                                <div class="card-body">
+                                    <h4>{{$p->title}} ({{$p->weight}}/{{$p->weight_type}})</h4>
+                                    @foreach($orderitem as $o)
                                     
-                                        @if($oi->cake->id == $p->id)
-                                            <h6>Order Id - {{$o->id}}</h6>
-                                            <p>qty - {{$oi->qty}}</p>
-                                            <?php
-                                                $totalQty += $oi->qty;
-                                            ?>
+                                        @if($o->orderitem)
+                                            @foreach($o->orderitem as $oi)
+                                            
+                                                @if($oi->cake->id == $p->id)
+                                                    <h6>Order Id - {{$o->id}}</h6>
+                                                    <p>qty - {{$oi->qty}}</p>
+                                                    <?php
+                                                        $totalQty += $oi->qty;
+                                                    ?>
+                                                @endif
+                                            @endforeach
                                         @endif
+
                                     @endforeach
-                                @endif
-
-                            @endforeach
-                        <h6>Total Quantity - {{$totalQty}} /{{$p->weight_type}}</h6>
-
+                                    <h5>Total Quantity - {{$totalQty}} /{{$p->weight_type}}</h5>
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                     

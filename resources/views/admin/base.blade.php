@@ -84,7 +84,6 @@
 						</li>
 					</ul>
 				</li>
-
 				<li>
 					<a class="has-arrow" href="javascript:;">
 						<div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
@@ -98,7 +97,6 @@
 						</li>
 					</ul>
 				</li>
-
 				<li>
 					<a href="javascript:;" class="has-arrow">
 						<div class="parent-icon"><i class='bx bx-cart'></i>
@@ -112,17 +110,29 @@
 						</li>
 					</ul>
 				</li>
-				
 				<li>
 					<a class="has-arrow" href="javascript:;">
-						<div class="parent-icon"><i class="bx bx-repeat"></i>
+						<div class="parent-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-diagram-3" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
+							</svg>
 						</div>
-						<div class="menu-title">Network Management</div>
+						<div class="menu-title">Network</div>
 					</a>
 					<ul>
 						<li> <a href="{{route('network')}}"><i class="bx bx-right-arrow-alt"></i>Membear Network</a>
 						</li>
 						
+					</ul>
+				</li>
+				<li>
+					<a class="has-arrow" href="javascript:;">
+						<div class="parent-icon"><i class="bx bx-error"></i>
+						</div>
+						<div class="menu-title">Downline</div>
+					</a>
+					<ul>
+						<li> <a href="{{route('register_downline_admin')}}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Add Downline</a>
+						</li>
 					</ul>
 				</li>
 				<li>
@@ -160,7 +170,7 @@
 					<ul>
 						<li> <a href="{{route('districts.index')}}"><i class="bx bx-right-arrow-alt"></i>Districts</a>
 						</li>
-						<li> <a href="{{route('districts.create')}}l"><i class="bx bx-right-arrow-alt"></i>Add Districts</a>
+						<li> <a href="{{route('districts.create')}}	"><i class="bx bx-right-arrow-alt"></i>Add Districts</a>
 						</li>
 					</ul>
 				</li>
@@ -659,24 +669,12 @@
 						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							<img src="https://via.placeholder.com/110x110" class="user-img" alt="user avatar">
 							<div class="user-info ps-3">
-								<p class="user-name mb-0">Pauline Seitz</p>
+								<p class="user-name mb-0">{{Auth::User()->name}}</p>
 								<p class="designattion mb-0">Web Designer</p>
 							</div>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-end">
-							<li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
-							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Settings</span></a>
-							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-home-circle'></i><span>Dashboard</span></a>
-							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-dollar-circle'></i><span>Earnings</span></a>
-							</li>
-							<li><a class="dropdown-item" href="javascript:;"><i class='bx bx-download'></i><span>Downloads</span></a>
-							</li>
-							<li>
-								<div class="dropdown-divider mb-0"></div>
-							</li>
+						
 							
 							<li>
 								<form action="{{route('logout')}}" method="POST">
